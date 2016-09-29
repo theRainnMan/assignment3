@@ -35,12 +35,12 @@ defmodule Ex01 do
     end
   end
 
-  def new_counter(value) do
-    spawn __MODULE__, :counter, [value]
+  def new_counter(start) do
+    spawn __MODULE__, :counter, [start]
   end
 
-  def next_value(count) do
-    send count, { :next, self }
+  def next_value(counter) do
+    send counter, { :next, self }
     receive do
       { :next_is, value } ->
         value
