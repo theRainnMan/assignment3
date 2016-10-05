@@ -1,6 +1,9 @@
 
 defmodule Ex02 do
-  def new_counter(start) do
+
+  @counter :counter
+
+  def new_counter(start \\ 0) do
     Agent.start_link(fn -> start end)
   end
 
@@ -8,12 +11,12 @@ defmodule Ex02 do
     Agent.get_and_update(counter, fn v -> { v, v+1 } end)
   end
 
-  def new_global_counter do
-    Agent.start_link(fn -> 0 end, name: :counter)
+  def new_global_counter(start \\ 0) do
+    Agent.start_link(fn -> start end, name: @counter)
   end
 
   def global_next_value do
-    Agent.get_and_update(:counter, fn v -> { v, v+1 } end)
+    Agent.get_and_update(@counter, fn v -> { v, v+1 } end)
   end
 end
 
